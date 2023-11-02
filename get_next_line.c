@@ -6,7 +6,7 @@
 /*   By: nhan <necat.han42@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:21:47 by nhan              #+#    #+#             */
-/*   Updated: 2023/10/31 16:54:05 by nhan             ###   ########.fr       */
+/*   Updated: 2023/11/02 10:35:17 by nhan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	ft_search_nl(t_list *list)
 	int	n;
 	int	i;
 
+	if (!list)
+		return (0);
 	n = 0;
 	search = list;
 	while(search->next != NULL)
@@ -98,8 +100,10 @@ char	*ft_put_nl(char *str, t_list *list)
 	int	i;
 	int	n;
 
+	if (!list)
+		return (NULL);
 	str = (char *) malloc ((ft_search_nl(list) + 1)  * sizeof(char));
-	if (str ==NULL)
+	if (str == NULL)
 		return (NULL);
 	puter = list;
 	n = 0;
@@ -158,9 +162,10 @@ char	*get_next_line(int fd)
 	t_list	*new;
 	static t_list	*list;
 
-	bytes_read = read(fd, buffer, BUFFER_SIZE);
-	while (bytes_read > 0)
-	{
+	while (ft_search_nl(list) == 0)
+	{	
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		write(1, "ici", 3);
 		str = (char *) malloc ((bytes_read + 1) * sizeof(char));
 		if (str == NULL)
 			return (NULL);
@@ -170,9 +175,6 @@ char	*get_next_line(int fd)
 		if (new == NULL)
 			return (NULL);
 		ft_lstadd_back(&list, new);	
-		if (ft_search_nl(list))
-			break ;
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
 	}
 	str = ft_put_nl(str, list);
 	return (str);
