@@ -6,82 +6,27 @@
 /*   By: nhan <necat.han42@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:21:47 by nhan              #+#    #+#             */
-/*   Updated: 2023/11/02 10:35:17 by nhan             ###   ########.fr       */
+/*   Updated: 2023/11/02 13:12:18 by nhan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "get_next_line.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
+#include "get_next_line.h"
 
-#define BUFFER_SIZE 10
-
-typedef struct s_list
-{
-	char			*content;
-	struct s_list	*next;
-}	t_list;
-
-t_list	*ft_lstnew(char *content)
-{
-	t_list	*new_lst;
-
-	new_lst = (t_list *) malloc(sizeof(t_list));
-	if (!new_lst)
-		return (NULL);
-	new_lst[0].content = strdup(content);;
-	new_lst[0].next = NULL;
-	return (new_lst);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != 0)
-	{
-		i++;
-	}
-	return (i);
-}
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	size_t	i;
-	size_t	size;
-
-	i = 0;
-	size = ft_strlen(src);
-	if (dstsize == 0)
-		return (size);
-	while (i < dstsize - 1 && dstsize != 0 && src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	if (dstsize != 0)
-		dst[i] = '\0';
-	return (size);
-}
 
 int	ft_search_nl(t_list *list)
 {
 	t_list	*search;
-	int	n;
 	int	i;
+	int	n;
 
 	if (!list)
 		return (0);
-	n = 0;
 	search = list;
-	while(search->next != NULL)
+	n = 0;
+	while(search)
 	{
 		i = 0;
-		while (search->content[i])
+		while (search->content[i] && i < BUFFER_SIZE)
 		{
 			if (search->content[i] == '\n')
 				return (n);
@@ -93,24 +38,18 @@ int	ft_search_nl(t_list *list)
 	return (0);
 }
 
-
-char	*ft_put_nl(char *str, t_list *list)
+char	*ft_copy_to_print(char *str, t_list *list)
 {
 	t_list	*puter;
 	int	i;
 	int	n;
 
-	if (!list)
-		return (NULL);
-	str = (char *) malloc ((ft_search_nl(list) + 1)  * sizeof(char));
-	if (str == NULL)
-		return (NULL);
 	puter = list;
 	n = 0;
-	while (puter->next != NULL)
+	while (puter)
 	{
 		i = 0;	
-		while (puter->content[i])
+		while (puter->content[i] && i < BUFFER_SIZE)
 		{
 			str[n] = puter->content[i];
 			if (puter->content[i] == '\n')
@@ -123,59 +62,55 @@ char	*ft_put_nl(char *str, t_list *list)
 		}
 		puter = puter->next;
 	}
+	str[n] = '\0';
 	return (str);
 }
 
-t_list	*ft_lstlast(t_list *lst)
+char	*ft_put_nl(t_list *list)
 {
-	t_list	*last;
+	char	*str;
 
-	if (lst == NULL)
+	if (list == NULL)
+		return (0);	
+	str = (char *) malloc ((ft_search_nl(list) + 1)  * sizeof(char));
+	if (str == NULL)
 		return (NULL);
-	last = lst;
-	while (last->next != NULL)
-	{
-		last = last->next;
-	}
-	return (last);
+	str = ft_copy_to_print(str, list);
+	return (str);
 }
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
-{
-	t_list	*last;
-
-	last = *lst;
-	if (!last)
-		*lst = new;
-	else
-	{
-		last = ft_lstlast(last);
-		last->next = new;
-	}
-}
-
-char	*get_next_line(int fd)
+void	ft_create_chained_list(int fd, t_list **list)
 {
 	char	*str;
 	char	buffer[BUFFER_SIZE];
 	int		bytes_read;
 	t_list	*new;
-	static t_list	*list;
-
-	while (ft_search_nl(list) == 0)
+	
+	while (ft_search_nl(*list) == 0)
 	{	
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		write(1, "ici", 3);
-		str = (char *) malloc ((bytes_read + 1) * sizeof(char));
-		if (str == NULL)
-			return (NULL);
-		ft_strlcpy(str, buffer, bytes_read + 1);	
+		if (bytes_read <= 0)
+			return ;
+		str = ft_copy_buffer(buffer, bytes_read);
+		if (!str)
+			return ;
 		new = ft_lstnew(str);
-		free(str);
 		if (new == NULL)
-			return (NULL);
-		ft_lstadd_back(&list, new);	
+			return ;
+		ft_lstadd_back(list, new);	
 	}
-	str = ft_put_nl(str, list);
+}
+
+char	*get_next_line(int fd)
+{
+	static t_list	*list = NULL;
+	char	*str;
+
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &str, 0) < 0)
+		return (NULL);
+	ft_create_chained_list(fd, &list);
+	if (list == NULL)
+		return (NULL);
+	str = ft_put_nl(list);
 	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: nhan <necat.han42@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:27:33 by nhan              #+#    #+#             */
-/*   Updated: 2023/10/31 16:52:51 by nhan             ###   ########.fr       */
+/*   Updated: 2023/11/02 12:51:17 by nhan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,20 @@ int main(int argc, char **argv)
 		write(1, O_SUC, strlen(O_SUC));
 		write(1, "START\n", 6);
 		str = get_next_line(o_file);
-		write (1, str, strlen(str));
+		if (str)
+			write (1, str, strlen(str));
 		write(1, "END\n", 5);
 		free(str);
 		write(1, "START\n", 6);
 		str = get_next_line(o_file);
-		write (1, str, strlen(str));
+		if (str)
+			write (1, str, strlen(str));
 		write(1, "END\n", 5);
 		free(str);
 		write(1, "START\n", 6);
 		str = get_next_line(o_file);
-		write (1, str, strlen(str));
+		if (str)
+			write (1, str, strlen(str));
 		write(1, "END\n", 5);
 		write(1, star, strlen(star));
 	}
