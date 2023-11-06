@@ -19,7 +19,9 @@
 
 #define ECHEC_OUV "Echec de l'ouverture du fichier "
 #define	LIGNES  " ligne(s):\n"
-
+#define	TEST_FILES "test/"
+#define OUTPUT_FILES "check_output/"
+#define GET_FILES "get_next_line_output/"
 
 void	message(const char *str1, const char *str2)
 {
@@ -222,10 +224,10 @@ int main(void)
 		write(1, tab[i], strlen(tab[i]));
 		write(1, star, strlen(star)); 
 		write(1, "\n", 1);
-		s1 = join("test/", tab[i]);
+		s1 = join(TEST_FILES, tab[i]);
 		if(!s1)
 			return (1);
-		s2 = join("output/", tab[i]);
+		s2 = join(OUTPUT_FILES, tab[i]);
 		if (!s2)
 		{
 			free(s1);
