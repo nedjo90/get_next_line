@@ -6,7 +6,7 @@
 /*   By: nhan <necat.han42@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 13:04:00 by nhan              #+#    #+#             */
-/*   Updated: 2023/11/05 18:02:44 by nhan             ###   ########.fr       */
+/*   Updated: 2023/11/06 21:42:47 by nhan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <limits.h>
+#include "get_next_line.h"
 
 #define ECHEC_OUV "Echec de l'ouverture du fichier "
 #define	LIGNES  " ligne(s):\n"
-#define	TEST_FILES "test/"
+#define	TEST_FILES "test_files/"
 #define OUTPUT_FILES "check_output/"
 #define GET_FILES "get_next_line_output/"
 

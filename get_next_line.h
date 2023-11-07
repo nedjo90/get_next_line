@@ -6,7 +6,7 @@
 /*   By: nhan <necat.han42@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:31:52 by nhan              #+#    #+#             */
-/*   Updated: 2023/11/06 16:52:28 by nhan             ###   ########.fr       */
+/*   Updated: 2023/11/07 15:26:44 by nhan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,18 @@
 # include <string.h>
 # include <fcntl.h>
 # include <limits.h>
+
+#define BUFFER_SIZE 10
+
+char	*clean_tab_str(char *tab_str);
+char	*print_line(char *tab_str);
+char	*get_line(int fd, char *tab_str, char *buffer);
+char	*get_next_line(int fd);
+void	*ft_calloc(size_t count, size_t size);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*copy_buffer(char *buffer, char *tab_str);
+size_t	ft_strlen(char const *str);
+int	check_nl(char *str);
+
 
 #endif
