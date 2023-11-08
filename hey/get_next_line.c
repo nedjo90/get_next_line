@@ -111,7 +111,7 @@ char	*read_line(int fd, char *tab_str, char *buffer)
 		tab_str = copy_buffer(buffer, tab_str);
 		if (!tab_str)
 			return (NULL);
-		if (bytes == 0 && check_nl(tab_str) == 1)
+		if (check_nl(tab_str) == 1)
 			return (tab_str);
 	}
 	return (tab_str);
@@ -130,7 +130,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	tab_str[fd] = read_line(fd, tab_str[fd], buffer);
 	free(buffer);
-	if (!tab_str[fd])
+	if (tab_str[fd] == NULL)
 		return (NULL);
 	str = print_line(tab_str[fd]);
 	if (str == NULL || *str == '\0')
