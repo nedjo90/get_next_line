@@ -26,7 +26,7 @@
 
 char	*clean_tab_str(char *tab_str);
 char	*print_line(char *tab_str);
-char	*get_line(int fd, int bytes, char *tab_str, char *buffer);
+char	*read_line(int fd, char *tab_str, char *buffer);
 char	*get_next_line(int fd);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strjoin(char const *s1, char const *s2);
