@@ -23,12 +23,10 @@ char	*clean_tab_str(char *tab_str)
 	if (tab_str[i] == '\n')
 		i++;
 	if (tab_str[i] == '\0')
-	{
-		free(tab_str);
 		return (NULL);
-	}
-	temp = ft_strdup(tab_str + i);
-	free(tab_str);
+	temp = ft_strdup(&tab_str[i]);
+	if (temp == NULL)
+		return (NULL);
 	return (temp);
 }
 
