@@ -2,7 +2,7 @@ SRCS=get_next_line.c \
 get_next_line_utils.c \
 
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror -fsanitize=address -fno-omit-frame-pointer -D BUFFER_SIZE=10000000
+CFLAGS=-g -Wall -Wextra -Werror -D BUFFER_SIZE=10000000
 OBJ=$(SRCS:.c=.o)
 AR=ar rcs
 RM=rm -rf
