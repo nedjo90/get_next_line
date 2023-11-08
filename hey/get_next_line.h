@@ -20,9 +20,9 @@
 # include <fcntl.h>
 # include <limits.h>
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE
-#endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE
+# endif
 
 char	*clean_tab_str(char *tab_str);
 char	*print_line(char *tab_str);

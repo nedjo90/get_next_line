@@ -75,7 +75,7 @@ char	*copy_buffer(char *buffer, char *tab_str)
 	if (*buffer == '\0' || buffer == NULL)
 		return (tab_str);
 	else if (tab_str == NULL)
-	{	
+	{
 		tab_str = ft_strdup(buffer);
 		if (tab_str == NULL)
 			return (NULL);
@@ -96,7 +96,7 @@ char	*copy_buffer(char *buffer, char *tab_str)
 
 char	*read_line(int fd, char *tab_str, char *buffer)
 {
-	int bytes;
+	int	bytes;
 
 	bytes = 1;
 	while (bytes > 0)
@@ -111,7 +111,7 @@ char	*read_line(int fd, char *tab_str, char *buffer)
 		tab_str = copy_buffer(buffer, tab_str);
 		if (!tab_str)
 			return (NULL);
-		if (check_nl(tab_str) == 1)
+		if (bytes == 0 && check_nl(tab_str) == 1)
 			return (tab_str);
 	}
 	return (tab_str);
@@ -123,14 +123,14 @@ char	*get_next_line(int fd)
 	char		*buffer;
 	static char	*tab_str[2048];
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) != 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (buffer == NULL)
 		return (NULL);
 	tab_str[fd] = read_line(fd, tab_str[fd], buffer);
 	free(buffer);
-	if (tab_str[fd] == NULL || *tab_str[fd] == '\0')
+	if (!tab_str[fd])
 		return (NULL);
 	str = print_line(tab_str[fd]);
 	if (str == NULL || *str == '\0')
