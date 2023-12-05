@@ -6,46 +6,37 @@
 /*   By: nhan <necat.han42@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:30:47 by nhan              #+#    #+#             */
-/*   Updated: 2023/11/07 23:36:23 by nhan             ###   ########.fr       */
+/*   Updated: 2023/12/05 11:26:38 by nhan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*clean_tab_str(char *tab_str)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	i;
-	char	*temp;
+	size_t	j;
+	char	*join;
 
-	i = 0;
-	while (tab_str[i] != '\n' && tab_str[i] != '\0')
-		i++;
-	if (tab_str[i] == '\n')
-		i++;
-	if (tab_str[i] == '\0')
-		return (NULL);
-	temp = ft_strdup(&tab_str[i]);
-	if (temp == NULL)
-		return (NULL);
-	return (temp);
-}
-
-char	*ft_strdup(char	*str)
-{
-	size_t	i;
-	char	*new_str;
-
-	new_str = ft_calloc(ft_strlen(str) + 1, sizeof(char));
-	if (!new_str)
-		return (NULL);
-	i = 0;
-	while (str[i] != '\0')
+	if (!s1)
 	{
-		new_str[i] = str[i];
-		i++;
+		s1 = malloc(1 + sizeof(char));
+		if (!s1)
+			return (NULL);
+		s1[0] = 0;
 	}
-	new_str[i] = '\0';
-	return (new_str);
+	join = (char *) malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!join)
+		return (free_tab_str(&s1));
+	i = -1;
+	j = -1;
+	while (s1[++i])
+		join[i] = s1[i];
+	while (s2[++j])
+		join[i + j] = s2[j];
+	join[i + j] = '\0';
+	free(s1);
+	return (join);
 }
 
 size_t	ft_strlen(char const *str)
@@ -58,40 +49,45 @@ size_t	ft_strlen(char const *str)
 	return (i);
 }
 
-void	*ft_calloc(size_t count, size_t size)
+char	*ft_strchr(char *s, int c)
 {
-	void	*ptr;
-	size_t	i;
+	int		i;
 
-	if (count == 0 && size == 0)
-		count = 1;
-	else if (count == 0 || size == 0)
-		return (NULL);
-	else if ((((int)count < 0 && (int)size < 0) \
-		|| count >= 2147483647 || size >= 2147483647))
-		return (NULL);
-	ptr = malloc((int)size * (int)count);
-	if (!ptr)
-		return (NULL);
 	i = 0;
-	while (i < size && size > 0)
+	while (s[i])
 	{
-		*(char *)(ptr + i) = 0;
+		if (s[i] == (char)c)
+			return (&((char *)s)[i]);
 		i++;
 	}
-	return (ptr);
+	if ((char)c == '\0')
+		return (&((char *)s)[i]);
+	return (0);
 }
 
-int	check_nl(char *str)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	i;
+	unsigned int	i;
+	char			*str;
 
+	if (!s)
+		return (0);
 	i = 0;
-	while (str[i] != '\0')
+	if (start > ft_strlen(s))
 	{
-		if (str[i] == '\n')
-			return (1);
-		i++;
+		str = malloc(sizeof(char) * 1);
+		if (!str)
+			return (NULL);
+		str[0] = '\0';
+		return (str);
 	}
-	return (0);
+	if (ft_strlen(s) - start < len)
+		len = ft_strlen(s) - start;
+	str = malloc (sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	while (start < ft_strlen(s) && i < len && s[start])
+		str[i++] = s[start++];
+	str[i] = '\0';
+	return (str);
 }

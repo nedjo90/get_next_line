@@ -6,7 +6,7 @@
 /*   By: nhan <necat.han42@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:31:52 by nhan              #+#    #+#             */
-/*   Updated: 2023/11/07 23:51:26 by nhan             ###   ########.fr       */
+/*   Updated: 2023/12/05 11:07:19 by nhan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@
 
 char	*clean_tab_str(char *tab_str);
 char	*print_line(char *tab_str);
-char	*read_line(int fd, char *tab_str, char *buffer);
+char    *free_tab_str(char **str);
+char	*read_line(int fd, char *tab_str);
 char	*get_next_line(int fd);
-void	*ft_calloc(size_t count, size_t size);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*copy_buffer(char *buffer, char *tab_str);
-char	*ft_strdup(char	*str);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strchr(char *s, int c);
 size_t	ft_strlen(char const *str);
-int		check_nl(char *str);
 
 #endif
