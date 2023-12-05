@@ -1,52 +1,65 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nhan <necat.han42@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:31:52 by nhan              #+#    #+#             */
-/*   Updated: 2023/12/05 11:34:05 by nhan             ###   ########.fr       */
+/*   Updated: 2023/12/05 12:42:16 by nhan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h" 
 
-char	*free_tab_str(char **str)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	free(*str);
-	*str = NULL;
-	return (NULL);
+	size_t	i;
+	size_t	j;
+	char	*join;
+
+	if (!s1)
+	{
+		s1 = malloc(1 + sizeof(char));
+		if (!s1)
+			return (NULL);
+		s1[0] = 0;
+	}
+	join = (char *) malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!join)
+		return (free_tab_str(&s1));
+	i = -1;
+	j = -1;
+	while (s1[++i])
+		join[i] = s1[i];
+	while (s2[++j])
+		join[i + j] = s2[j];
+	join[i + j] = '\0';
+	free(s1);
+	return (join);
 }
 
-char	*clean_tab_str(char *tab_str)
+char	*ft_strchr(char *s, int c)
 {
-	char	*ptr;
-	char	*new_tab_str;
-	int	size;
+	int		i;
 
-	ptr = ft_strchr(tab_str, '\n'); 
-	if (!ptr)
+	i = 0;
+	while (s[i])
 	{
-		new_tab_str = NULL;
-		return (free_tab_str(&tab_str));
+		if (s[i] == (char)c)
+			return (&((char *)s)[i]);
+		i++;
 	}
-	else
-		size = (ptr - tab_str) + 1;
-	if (!tab_str[size])
-		return (free_tab_str(&tab_str));
-	new_tab_str = ft_substr(tab_str, size, ft_strlen(tab_str) - size);
-	free_tab_str(&tab_str);
-	if(!new_tab_str)
-		return (NULL);
-	return (new_tab_str);
+	if ((char)c == '\0')
+		return (&((char *)s)[i]);
+	return (0);
 }
 
 char	*print_line(char *tab_str)
 {
 	char	*str;
 	char	*ptr;
-	int	size;
+	int		size;
 
 	ptr = ft_strchr(tab_str, '\n');
 	size = (ptr - tab_str) + 1;
@@ -58,11 +71,11 @@ char	*print_line(char *tab_str)
 
 char	*read_line(int fd, char *tab_str)
 {
-	int	bytes;
 	char	*buffer;
+	int		bytes;
 
 	bytes = 1;
-	buffer =  malloc ((BUFFER_SIZE + 1) * sizeof(char));
+	buffer = (char *) malloc ((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (free_tab_str(&tab_str));
 	buffer[0] = '\0';
