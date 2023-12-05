@@ -17,8 +17,9 @@ Ce projet consiste à développer une fonction `get_next_line` en langage C qui 
 
 ### Fonction
 
-```c
+```
 char *get_next_line(int fd);
+```
 
 ## Fichiers de Rendu
 - `get_next_line.h`
@@ -36,8 +37,8 @@ char *get_next_line(int fd);
 - `read`, `malloc`, `free`
 
 ## Compilation
-```bash
-gcc -Wall -Wextra -Werror -D BUFFER_SIZE=n get_next_line*.c
+```
+gcc -Wall -Wextra -Werror -D BUFFER_SIZE=n get_next_line.c get_next_line_utils.c
 ```
 
 ## La macro BUFFER_SIZE
