@@ -6,11 +6,11 @@
 /*   By: nhan <necat.han42@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:30:47 by nhan              #+#    #+#             */
-/*   Updated: 2023/12/05 12:42:28 by nhan             ###   ########.fr       */
+/*   Updated: 2023/12/08 21:11:37 by nhan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*free_tab_str(char **str)
 {
@@ -23,6 +23,8 @@ size_t	ft_strlen(char const *str)
 {
 	size_t	i;
 
+	if (!str)
+		return (0);
 	i = 0;
 	while (str[i] != '\0')
 		i++;

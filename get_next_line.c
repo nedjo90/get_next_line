@@ -6,7 +6,7 @@
 /*   By: nhan <necat.han42@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:31:52 by nhan              #+#    #+#             */
-/*   Updated: 2023/12/05 12:39:06 by nhan             ###   ########.fr       */
+/*   Updated: 2023/12/08 20:56:50 by nhan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_strchr(char *s, int c)
 	int		i;
 
 	i = 0;
-	while (s[i])
+	while (s[i] && s)
 	{
 		if (s[i] == (char)c)
 			return (&((char *)s)[i]);

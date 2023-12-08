@@ -6,11 +6,11 @@
 /*   By: nhan <necat.han42@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:31:52 by nhan              #+#    #+#             */
-/*   Updated: 2023/12/05 12:42:16 by nhan             ###   ########.fr       */
+/*   Updated: 2023/12/08 20:53:35 by nhan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h" 
+#include "get_next_line_bonus.h" 
 
 char	*ft_strjoin(char *s1, char *s2)
 {

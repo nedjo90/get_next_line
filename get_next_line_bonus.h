@@ -6,22 +6,21 @@
 /*   By: nhan <necat.han42@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:31:52 by nhan              #+#    #+#             */
-/*   Updated: 2023/12/05 12:35:00 by nhan             ###   ########.fr       */
+/*   Updated: 2023/12/08 21:04:27 by nhan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
 
-# include <unistd.h>
 # include <stdio.h>
-# include <stdlib.h>
+# include <unistd.h>
 # include <string.h>
+# include <stdlib.h>
 # include <fcntl.h>
-# include <limits.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE
+#  define BUFFER_SIZE 42
 # endif
 
 char	*clean_tab_str(char *tab_str);
